@@ -19,20 +19,19 @@ import org.junit.Test;
 public class LoginAndOut {
 
     @After
-    public void tearDown()
-    {//程序退出时解除Subject线程绑定
+    public void tearDown() {//程序退出时解除Subject线程绑定
         ThreadContext.unbindSubject();
     }
 
     @Test
-    public void testJDBCRealm(){
+    public void testJDBCRealm() {
         Factory<org.apache.shiro.mgt.SecurityManager> factory =
                 new IniSecurityManagerFactory("classpath:shiro-jdbc-realm.ini");
         SecurityManager securityManager = factory.getInstance();
         SecurityUtils.setSecurityManager(securityManager);
 
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken("zhang","123");
+        UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");
 
         try {
             subject.login(token);
@@ -46,7 +45,7 @@ public class LoginAndOut {
     }
 
     @Test
-    public void testCustomRealm(){
+    public void testCustomRealm() {
         //1,获取SecurityManager工厂，此处使用配置文件ini初始化SecurityManager
         Factory<org.apache.shiro.mgt.SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro-realm.ini");
         //2,获得securityManager实例，并绑定给SecurityUtils

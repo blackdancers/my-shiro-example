@@ -1,4 +1,4 @@
-package com.github.lovesick.shiro.chapter2.com.github.lovesick.shiro.chapter2.realm;
+package com.github.lovesick.shiro.chapter2.realm;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.realm.Realm;
@@ -6,29 +6,22 @@ import org.apache.shiro.realm.Realm;
 /**
  * Created by dujiang on 2016/4/4.
  */
-public class MyRealm1 implements Realm {
+public class MyRealm2 implements Realm{
     @Override
     public String getName() {
-        return "myrealm1";//返回一个唯一的Realm名字
+        return null;
     }
 
     @Override
     public boolean supports(AuthenticationToken token) {
-        return token instanceof UsernamePasswordToken;//支持类型,仅支持UsernamePasswordToken
-
+        return token instanceof UsernamePasswordToken;
     }
 
-    /**
-     *  根据token获取认证信息
-     * @param token
-     * @return
-     * @throws AuthenticationException
-     */
     @Override
     public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();//得到用户名
         String password = new String((char[]) token.getCredentials());//得到密码
-        if (!"lovesick".equals(username)) {
+        if (!"zhang".equals(username)) {
             throw new UnknownAccountException("用户名错误!!!");
         }
         if (!"123".equals(password)) {
@@ -38,10 +31,3 @@ public class MyRealm1 implements Realm {
         return new SimpleAuthenticationInfo(username,password,getName());
     }
 }
-
-
-
-
-
-
-
